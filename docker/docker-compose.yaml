@@ -1,0 +1,15 @@
+version: '3'
+services:
+  ubuntu:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name:
+      'ubuntu'
+    working_dir:
+      '/root/'
+    tty:
+      true
+    volumes:
+      - ../zsh/.zshrc:/root/.zshrc

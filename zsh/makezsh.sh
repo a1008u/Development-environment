@@ -1,5 +1,5 @@
 #!/usr/local/bin/zsh
 
-cp zshrc ~/.zshrc
+cp .zshrc ~/.zshrc
 cd ~
 source .zshrc

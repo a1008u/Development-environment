@@ -67,27 +67,4 @@ POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
 alias ls="colorls -a"
 
 
-# -----------------------------------------------
-# latexの設定
-# -----------------------------------------------
 
-### latex compile functions ###
-texc (){
-    files=$(echo $@ | sed -e 's/\.tex//g');
-    for file in $files; do
-        platex "$file".tex;
-        echo "--------------------------------------\n"
-        dvipdfmx "$file".dvi > /dev/null;
-        ls $file* | grep -v -e '.tex' -e '.pdf' | xargs rm;
-    done
-
-    echo "open viewer? [y/n]"
-    read resp
-    
-    if [ $(echo $resp | grep '[y|Y]' | wc -l) -ge 1 ]; then
-	    for file in $files; do
-	        command open ${file}.pdf;
-	    done
-    fi
-    echo "-------- compile END --------"
-}
