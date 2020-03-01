@@ -158,69 +158,51 @@ endif
 filetype plugin indent on
 
 
-"*****************************************************************************
-"" NeoBundle core
-"*****************************************************************************
-if has('vim_starting')
-  set nocompatible               " Be iMproved
+""""""""""""""""""""""""""""""
+" deinのインストール
+""""""""""""""""""""""""""""""
+if &compatible
+  set nocompatible
+endif
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+
+  call dein#end()
+  call dein#save_state()
 endif
 
-let neobundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
-let solarized_vim=expand('~/.vim/colors/solarized.vim')
+filetype plugin indent on
+syntax enable
 
-let g:vim_bootstrap_langs = "javascript,ruby,python,html,go"
-let g:vim_bootstrap_editor = "vim"				" nvim or vim
 
-if !filereadable(neobundle_readme)
-  echo "Installing NeoBundle..."
-  echo ""
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim/
-  let g:not_finsh_neobundle = "yes"
+""""""""""""""""""""""""""""""
+" プラグインのセットアップ
+""""""""""""""""""""""""""""""
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 
-  " Run shell script if exist on custom select language
-endif
+call dein#begin(expand('~/.vim/dein'))
 
-if !filereadable(solarized_vim)
-  echo "Installing Solarized Theme..."
-  echo ""
+call dein#add('Shougo/dein.vim')
+call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
-  silent !mkdir -p ~/.vim/colors
-  silent !mkdir -p ~/.vim/tmp
-  silent !git clone https://github.com/altercation/vim-colors-solarized.git ~/.vim/tmp/solarized
-  !mv ~/.vim/tmp/solarized/colors/solarized.vim ~/.vim/colors/
-endif
+" ファイルオープンを便利に
+call dein#add('Shougo/unite.vim')
+" Unite.vimで最近使ったファイルを表示できるようにする
+call dein#add('Shougo/neomru.vim')
+" ...省略
+
+call dein#end()
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-"*****************************************************************************
-""" Functions
-"*****************************************************************************
-function! s:meet_neocomplete_requirements()
-  return has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
-endfunction
-
-"*****************************************************************************
-"" VimProc DLL Path
-"*****************************************************************************
-if has('mac')
-  let g:vimproc_dll_path = $VIMRUNTIME . '/autoload/vimproc_mac.so'
-elseif has('win32')
-  let g:vimproc_dll_path = $HOME . '.vim/bundle/vimproc/autoload/vimproc_win32.dll'
-elseif has('win64')
-  let g:vimproc_dll_path = $HOME . '.vim/bundle/vimproc/autoload/vimproc_win64.dll'
-endif
-
-"*****************************************************************************
-"" NeoBundle install packages
-"*****************************************************************************
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'scrooloose/nerdtree'
+filetype plugin indent on
+""""""""""""""""""""""""""""""

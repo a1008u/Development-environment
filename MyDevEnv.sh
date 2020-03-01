@@ -22,13 +22,6 @@ echo " ------------ END ------------"
 #
 read -sp "Your Password: " pass;
 
-#
-# Mac App Store apps install
-#
-echo " ---- Mac App Store apps -----"
-brew install mas
-echo " ------------ END ------------"
-
 # ---------------------------------------
 # Git用
 # ---------------------------------------
@@ -43,8 +36,6 @@ echo " ------------ END ------------"
 # ---------------------------------------
 # ターミナルの変更(zshに変更 オプション)
 # ---------------------------------------
-
-
 # echo " ----------- rbenv ------------"
 brew install rbenv
 # echo " ------------ END ------------"
@@ -58,7 +49,7 @@ chsh -s /usr/local/bin/zsh
 # echo " ------------ END ------------"
 
 # echo " ------------ Vim ------------"
-brew install vim --with-override-system-vi
+# brew install vim --with-override-system-vi
 # echo " ------------ END ------------"
 
 # echo " --------- Powerline ---------"
@@ -69,8 +60,8 @@ git clone https://github.com/powerline/fonts.git ~/fonts
 # echo " ------------ END ------------"
 
 # echo " ----------- wget ------------"
-brew install wget
-wget --version
+# brew install wget
+# wget --version
 # echo " ------------ END ------------"
 
 # echo " ----------- colorls ------------"
@@ -79,14 +70,10 @@ brew cask install caskroom/fonts/font-hack-nerd-font
 # echo " ------------ END ------------"
 
 # ---------------------------------------
-# node用
-# ---------------------------------------
-
-#
 # Install Node.js env
-#
+# ---------------------------------------
 echo " ---------- Node.js ----------"
-curl -L git.io/nodebrew | perl - setup
+brew install nodebrew
 nodebrew ls-remote
 nodebrew install-binary latest
 nodebrew ls
@@ -95,17 +82,43 @@ node -v
 npm -v
 echo " ------------ END ------------"
 
-#
+# ---------------------------------------
+# sdkman(java, kotlin, maven, gradle)
+# ---------------------------------------
+curl -s "https://get.sdkman.io" | zsh
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# ---------------------------------------
+# goenv
+# ---------------------------------------
+echo " ----------- goenv ------------"
+brew install goenv
+echo " ------------ END ------------"
+
+# ---------------------------------------
+# pyenv
+# ---------------------------------------
+echo " ----------- pyenv ------------"
+brew install pyenv
+echo " ------------ END ------------"
+
+# ---------------------------------------
 # Install Yarn
-#
+# ---------------------------------------
 echo " ----------- Yarn ------------"
 brew install yarn
 echo " ------------ END ------------"
 
 # ---------------------------------------
+# Install tree
+# ---------------------------------------
+echo " ----------- tree ------------"
+brew install tree
+echo " ------------ END ------------"
+
+# ---------------------------------------
 # app用(GUIのインストール)
 # ---------------------------------------
-
 while true; do
   read -p 'Now install web apps? [Y/n]' Answer
   case $Answer in
